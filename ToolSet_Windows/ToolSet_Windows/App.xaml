@@ -1,0 +1,38 @@
+﻿<Application x:Class="ToolSet_Windows.App"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:local="clr-namespace:ToolSet_Windows"
+	StartupUri="MainWindow.xaml">
+	<Application.Resources>
+		<Style x:Key="datagrid_basic_style" TargetType="{x:Type DataGrid}">
+			<Setter Property="CanUserAddRows"			Value="False"/>
+			<Setter Property="Foreground"				Value="Black"/>
+			<Setter Property="Background"				Value="White"/>
+			<Setter Property="AutoGenerateColumns"			Value="False"/>
+			<Setter Property="IsReadOnly"				Value="True"/>
+			<Setter Property="FontSize"				Value="12"/>
+			<Setter Property="FontFamily"				Value="微软雅黑"/>
+			<Setter Property="BorderThickness"			Value="0"/>
+			<Setter Property="RowHeaderWidth"			Value="0"/>
+			<Setter Property="HorizontalScrollBarVisibility"	Value="Auto"/>
+			
+			<!-- Scroll -->
+			<Setter Property="ScrollViewer.CanContentScroll"		Value="False"/>
+			<Setter Property="ScrollViewer.HorizontalScrollBarVisibility"	Value="Auto"/>
+			
+			<!-- Colors -->
+			<Setter Property="AlternatingRowBackground"		Value="#FFFAFAFA"/>
+			<Setter Property="HorizontalGridLinesBrush">
+				<Setter.Value>
+					<SolidColorBrush Color="White"/>
+				</Setter.Value>
+			</Setter>			
+			<Setter Property="VerticalGridLinesBrush">
+				<Setter.Value>
+					<SolidColorBrush Color="#FFBBBBBB"/>
+				</Setter.Value>
+			</Setter>
+			
+		</Style>
+	</Application.Resources>
+</Application>

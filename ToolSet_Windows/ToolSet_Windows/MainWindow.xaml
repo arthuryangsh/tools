@@ -1,0 +1,39 @@
+﻿<Window x:Class="ToolSet_Windows.MainWindow"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:local="clr-namespace:ToolSet_Windows"
+	mc:Ignorable="d"
+	Title="MainWindow" Height="350" Width="525">
+
+	<Window.Resources>
+		<DataTemplate x:Key="DataTemplate_functions_button">
+			<Button Content="{Binding name}" Click="Button_Click" Tag="{Binding name}"/>
+		</DataTemplate>
+	</Window.Resources>
+
+	<Grid>
+		<Grid>
+			<DataGrid x:Name="function_list" ItemsSource="{Binding functions}" Style="{StaticResource datagrid_basic_style}" >
+				<DataGrid.Columns>
+					<DataGridTemplateColumn CellTemplate="{StaticResource DataTemplate_functions_button}" Width="80" />
+					<DataGridTextColumn Header="Description"	Binding="{Binding description}"	Width="*"	/>
+				</DataGrid.Columns>
+				
+				<DataGrid.CellStyle>
+					<Style TargetType="DataGridCell">
+						<Style.Triggers>
+							<Trigger Property="IsSelected" Value="True">
+								<Setter Property="Background"		Value="White"/>
+								<Setter Property="Foreground"		Value="Black"/>
+								<Setter Property="BorderThickness"	Value="0" />
+							</Trigger>
+						</Style.Triggers>
+					</Style>
+				</DataGrid.CellStyle>
+			</DataGrid>
+			
+		</Grid>
+	</Grid>
+</Window>

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 
-namespace Windows {
+namespace ToolSet_Windows {
 	/// <summary>
 	/// Interaction logic for App.xaml
 	/// </summary>
