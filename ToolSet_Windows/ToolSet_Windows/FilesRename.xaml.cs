@@ -112,6 +112,7 @@ namespace ToolSet_Windows {
 				filename		+= "CVPR_2017_paper.pdf";
 
 				if(File.Exists(path+@"\"+filename)) {
+					paper.filename	= filename;
 					paper.pdf_exist	= true;
 				} else {
 					paper.pdf_exist	= false;
@@ -122,8 +123,17 @@ namespace ToolSet_Windows {
 		// Rename and exit 
 		private void Button_Click_rename(object sender, RoutedEventArgs e)
 		{
-			// Get File
+			if(path==null)
+				return;
 
+			// Rename
+			foreach(FilesRename_paper paper in binding_data.list_paper) {
+				string	new_filename	= string.Format("{0:D3}", paper.ID)+" "+paper.filename;
+				File.Move(path+@"\"+paper.filename, path+@"\"+new_filename);
+			}
+
+			// Exit
+			this.Close();
 		}
 	}
 
@@ -159,11 +169,13 @@ namespace ToolSet_Windows {
 		private	List<string>	_author		= new List<string>();	// 
 		private	string		_title		;			// 
 		private	bool		_pdf_exist	= false;		// If there is PDF
+		private	string		_filename	= null;			// If there is PDF
 
 		public	UInt32		ID		{ get { return _ID;		} set { _ID		= value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(MethodBase.GetCurrentMethod().Name.Substring(4))); } }
 		public	List<string>	author		{ get { return _author;		} set { _author		= value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(MethodBase.GetCurrentMethod().Name.Substring(4))); } }
 		public	string		title		{ get { return _title;		} set { _title		= value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(MethodBase.GetCurrentMethod().Name.Substring(4))); } }
 		public	bool		pdf_exist	{ get { return _pdf_exist;	} set { _pdf_exist	= value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(MethodBase.GetCurrentMethod().Name.Substring(4))); } }
+		public	string		filename	{ get { return _filename;	} set { _filename	= value; PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(MethodBase.GetCurrentMethod().Name.Substring(4))); } }
 	}
 
 
