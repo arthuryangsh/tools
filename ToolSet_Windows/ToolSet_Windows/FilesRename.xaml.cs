@@ -49,7 +49,23 @@ namespace ToolSet_Windows {
 				string		title	= null;
 				List<string>	author	= new List<string> ();
 				uint		index	= 1;
-				while((line = file.ReadLine()) != null){
+				while(true){
+					line	= file.ReadLine();
+					
+					if(line== null) {
+						if(title!=null && author.Count!=0) {
+							// Last paper
+							binding_data.list_paper.Add(new FilesRename_paper() {
+								ID		= index++,
+								author		= author,
+								title		= title,
+								pdf_exist	= false,
+							});
+						}
+
+						break;
+					}
+
 					if(author.Count==0) {
 						if(title==null) {
 							title	= line;
@@ -60,7 +76,7 @@ namespace ToolSet_Windows {
 						}
 					}
 
-					if(line=="") {
+					if(line.Trim()=="") {
 						// Blank line means this paper over
 						binding_data.list_paper.Add(new FilesRename_paper() {
 							ID		= index++,
@@ -129,8 +145,20 @@ namespace ToolSet_Windows {
 			// Rename
 			foreach(FilesRename_paper paper in binding_data.list_paper) {
 				string	new_filename	= string.Format("{0:D3}", paper.ID)+" "+paper.filename;
-				File.Move(path+@"\"+paper.filename, path+@"\"+new_filename);
+				if(paper.filename!=null)
+					File.Move(path+@"\"+paper.filename, path+@"\"+new_filename);
 			}
+
+			// Write to a list
+			System.IO.StreamWriter	file	= new System.IO.StreamWriter(path+@"\list.txt");  
+			foreach(FilesRename_paper paper in binding_data.list_paper) {
+				file.WriteLine(string.Format("{0:D3}", paper.ID));
+				file.WriteLine(paper.title);
+				file.WriteLine(string.Join(", ", paper.author));
+				file.WriteLine("");
+			}
+
+			file.Close();
 
 			// Exit
 			this.Close();
