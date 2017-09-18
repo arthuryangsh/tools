@@ -5,8 +5,28 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:local="clr-namespace:ToolSet_Windows"
 	mc:Ignorable="d"
-	Title="FilesRename" Height="300" Width="300">
+	Title="FilesRename" Height="800" Width="800">
+	<Window.Resources>
+		<local:Converter_string_join x:Key="converter_string_join" />
+	</Window.Resources>
 	<Grid>
-	
+		<Grid.RowDefinitions>
+			<RowDefinition Height="60"/>
+			<RowDefinition Height="*"/>
+			<RowDefinition Height="60"/>
+		</Grid.RowDefinitions>
+		<Button Grid.Row="0" Content="Import paper list" Click="Button_Click_import" Width="140" Height="40" Margin="10"/>
+		<DataGrid Grid.Row="1" VerticalScrollBarVisibility="Auto" ItemsSource="{Binding list_paper}" Style="{StaticResource datagrid_basic_style}" IsReadOnly="True">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="ID"		Binding="{Binding ID}"		Width="30"/>
+				<DataGridTextColumn Header="Author"	Binding="{Binding author, Converter={StaticResource converter_string_join}}"	Width="150"/>
+				<DataGridTextColumn Header="Title"	Binding="{Binding title}"	Width="*"/>
+				<DataGridCheckBoxColumn Header="PDF"	Binding="{Binding pdf_exist}"	Width="30"/>
+			</DataGrid.Columns>
+		</DataGrid>
+		<StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+			<Button Content="Open PDF Directory"	Click="Button_Click_directory" Width="140" Height="40" Margin="10"/>
+			<Button Content="Rename and Exit"	Click="Button_Click_rename" Width="140" Height="40" Margin="10"/>
+		</StackPanel>
 	</Grid>
 </Window>
